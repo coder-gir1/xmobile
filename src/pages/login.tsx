@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import Image from 'next/image';
 
 export default function LogIn() {
   const router = useRouter();
@@ -16,8 +17,13 @@ export default function LogIn() {
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const user = users.find((user: any) => user.email === email);
+    type User = {
+    email: string;
+    password: string;
+  };
+
+    const users: User[] = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = users.find((user) => user.email === email);
 
     if (!user) {
       setError('No account found with this email.');
@@ -42,11 +48,13 @@ export default function LogIn() {
       </Head>
       <div className="w-full max-w-md space-y-5">
         <div className="text-center">
-          <img
-            src="/xmobile_logo.png"
-            alt="Xmobile Logo"
-            className="mx-auto mb-15 w-50 h-auto"
-          />
+          <Image
+          src="/xmobile_logo.png"
+          alt="Xmobile Logo"
+          width={200}
+          height={100}
+          className="mx-auto mb-15 w-[200px] h-auto"
+        />
           <h2 className="text-2xl font-semibold text-gray-800 font-bold">Log In</h2>
         </div>
         <div className="space-y-4">
